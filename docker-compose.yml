@@ -11,6 +11,7 @@ services:
       - LANGFLOW_REDIS_URL=redis://host.docker.internal:6379/0
       # --- Superuser ---
       - LANGFLOW_SUPERUSER_PASSWORD=${LANGFLOW_SUPERUSER_PASSWORD:?set LANGFLOW_SUPERUSER_PASSWORD in .env}
+      - LANGFLOW_AUTO_LOGIN=true
       # --- Config directory ---
       - LANGFLOW_CONFIG_DIR=/app/langflow
     volumes:
