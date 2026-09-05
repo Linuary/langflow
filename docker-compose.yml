@@ -1,0 +1,22 @@
+services:
+  langflow:
+    image: langflowai/langflow:latest
+    pull_policy: always
+    ports:
+      - "7860:7860"
+    environment:
+      # --- PostgreSQL (external) ---
+      - LANGFLOW_DATABASE_URL=postgresql://postgres:123456@localhost:5433/langflow
+      # --- Redis (external) ---
+      - LANGFLOW_CACHE_TYPE=redis
+      - LANGFLOW_REDIS_URL=redis://localhost:6379/0
+      # --- Superuser ---
+      - LANGFLOW_SUPERUSER_PASSWORD=${LANGFLOW_SUPERUSER_PASSWORD:?set LANGFLOW_SUPERUSER_PASSWORD in .env}
+      # --- Config directory ---
+      - LANGFLOW_CONFIG_DIR=/app/langflow
+    volumes:
+      - langflow-data:/app/langflow
+    restart: unless-stopped
+
+volumes:
+  langflow-data:
